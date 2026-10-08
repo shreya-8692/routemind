@@ -12,7 +12,16 @@ async function connectDB() {
   mongoose.connection.on('error', (err) => logger.error('MongoDB error:', err.message));
 
   try {
-    await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 5000 });
+
+    console.log("MONGO_URI exists:", Boolean(process.env.MONGO_URI));
+    console.log(
+      "Mongo source:",
+      process.env.MONGO_URI ? "ATLAS_ENV" : "LOCAL_FALLBACK"
+    );
+
+    await mongoose.connect(config.mongoUri, {
+      serverSelectionTimeoutMS: 5000
+    });
     logger.info('MongoDB connected');
   } catch (err) {
     // Routing must keep working without the database; persistence features degrade instead.

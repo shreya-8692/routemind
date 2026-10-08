@@ -3,6 +3,7 @@ const { connectDB } = require('./config/db');
 const createApp = require('./app');
 const logger = require('./utils/logger');
 
+
 async function start() {
   await connectDB();
   const app = createApp();
